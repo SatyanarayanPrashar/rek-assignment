@@ -10,19 +10,34 @@ const BasicMap = () => {
   const destinationPosition = { lat: 22.2637, lng: 91.7159 };
 
   const startMovement = () => {
-    const stepSize = 10; // Adjust this value to control the speed of movement
-    const interval = setInterval(() => {
-      setShipPosition(prevPosition => ({
-        lat: prevPosition.lat + (destinationPosition.lat - prevPosition.lat) / stepSize,
-        lng: prevPosition.lng + (destinationPosition.lng - prevPosition.lng) / stepSize
-      }));
-      const distanceToDestinationLat = Math.abs(shipPosition.lat - destinationPosition.lat);
-      const distanceToDestinationLng = Math.abs(shipPosition.lng - destinationPosition.lng);
-      if (distanceToDestinationLat < 0.0001 && distanceToDestinationLng < 0.0001) {
-        clearInterval(interval);
-      }
-    }, 100);
+    const speedInKmph = 20;
+    const fps = 2;
+    const metersPerFrame = (speedInKmph * 100) / (60 * 360 * fps);
+    const interval = 1000 / fps;
+    
+    const intervalId = setInterval(() => {
+      setShipPosition(prevPosition => {
+        const dLat = destinationPosition.lat - prevPosition.lat;
+        const dLng = destinationPosition.lng - prevPosition.lng;
+        const distanceToDestination = Math.sqrt(dLat * dLat + dLng * dLng);
+
+        const unitLat = dLat / distanceToDestination;
+        const unitLng = dLng / distanceToDestination;
+  
+        const newLat = prevPosition.lat + unitLat * metersPerFrame;
+        const newLng = prevPosition.lng + unitLng * metersPerFrame;
+
+        if (Math.abs(newLat - destinationPosition.lat) < Math.abs(unitLat * metersPerFrame) &&
+            Math.abs(newLng - destinationPosition.lng) < Math.abs(unitLng * metersPerFrame)) {
+          clearInterval(intervalId);
+          return destinationPosition;
+        }
+  
+        return { lat: newLat, lng: newLng };
+      });
+    }, interval);
   };
+  
 
   const greenIcon = new Icon({
     iconUrl: "greenicon.png",

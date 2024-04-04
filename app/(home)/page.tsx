@@ -6,7 +6,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center p-10">
-      <div className="flex border-[2px] p-4 rounded-lg gap-[8rem] justify-center items-center">
+      {/* <div className="flex border-[2px] p-4 rounded-lg gap-[8rem] justify-center items-center">
         <div className="flex flex-col">
           <p className="font-bold">Starting</p>
           <div className="flex gap-[7px] mt-7">
@@ -35,7 +35,7 @@ export default function Home() {
             <p>91.7159</p>
           </div>
         </div>
-      </div>
+      </div> */}
       {/* Map component */}
       {/* <img src="greenicon.png" alt="location_svgreen.png"  /> */}
       <BasicMap />
