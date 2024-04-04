@@ -8,8 +8,10 @@ import "leaflet/dist/leaflet.css";
 const BasicMap = () => {
   const [shipPosition, setShipPosition] = useState({ lat: 22.16996, lng: 91.4996 });
   const destinationPosition = { lat: 22.2637, lng: 91.7159 };
+  const [reachedDes, setIsReached] = useState(false);
 
   const startMovement = () => {
+    setIsReached(true);
     const speedInKmph = 20;
     const fps = 2;
     const metersPerFrame = (speedInKmph * 100) / (60 * 360 * fps);
@@ -37,8 +39,12 @@ const BasicMap = () => {
       });
     }, interval);
   };
-  
 
+  const resetMovement = () => {
+    setIsReached(false); 
+    setShipPosition({ lat: 22.16996, lng: 91.4996 });
+  };
+  
   const greenIcon = new Icon({
     iconUrl: "greenicon.png",
     iconSize: [38, 38]
@@ -47,16 +53,10 @@ const BasicMap = () => {
     iconUrl: "redicon.png",
     iconSize: [38, 38]
   });
-  const shipIcon = new Icon({
-    iconUrl: "ship.png",
-    iconSize: [10, 60],
-    iconAnchor: [5, 30]
-  });
 
   const calculateAngle = (pointA: { lng: number; lat: number; }, pointB: { lng: number; lat: number; }) => {
     return Math.atan2(pointB.lng - pointA.lng, pointB.lat - pointA.lat) * (180 / Math.PI);
   };
-  
   
   const centerCoordinates = [
     [22.16996, 91.4996],
@@ -100,9 +100,15 @@ const BasicMap = () => {
           </div>
         </div>
       </div>
-      <button className="border rounded-lg bg-lime-400 px-4 py-1 mt-[10px]" onClick={startMovement}>
-        Start
-      </button>
+      {reachedDes ? (
+        <button className="border rounded-lg bg-red-400 px-4 py-1 mt-[10px]" onClick={resetMovement}>
+          Reset
+        </button>
+      ) : (
+        <button className="border rounded-lg bg-lime-400 px-4 py-1 mt-[10px]" onClick={startMovement}>
+          Start
+        </button>
+      )}
       <MapContainer center={center} zoom={11}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
