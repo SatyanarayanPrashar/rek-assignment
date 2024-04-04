@@ -5,9 +5,8 @@ import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import L, { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 
-const BasicMap = ({ initialPosition, destinationPosition }: { initialPosition: {lat: number, lng: number}, destinationPosition: {lat: number, lng: number} }) => {
+const BasicMap = ({ initialPosition, destinationPosition, speed }: { initialPosition: {lat: number, lng: number}, destinationPosition: {lat: number, lng: number}, speed: number }) => {
   const [shipPosition, setShipPosition] = useState(initialPosition);
-  const [speed ] = useState(20);
 
   const [reachedDes, setIsReached] = useState(false);
 
@@ -70,16 +69,18 @@ const BasicMap = ({ initialPosition, destinationPosition }: { initialPosition: {
   ];
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      {reachedDes ? (
-        <button className="border rounded-lg bg-red-400 px-4 py-1 w-[11.2 rem]" onClick={resetMovement}>
-          Reset
-        </button>
-      ) : (
-        <button className="border rounded-lg bg-[#46ec46] px-4 py-1 w-[11.2rem] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]" onClick={startMovement}>
-          Start
-        </button>
-      )}
+    <div className="flex flex-col justify-center relative items-center w-[121vh]">
+      <div className="absolute right-0 top-[-11.5rem]">
+        {reachedDes ? (
+            <button className="border rounded-lg bg-red-400 px-4 py-1 w-[10.1rem] h-[10.1rem]" onClick={resetMovement}>
+              Reset
+            </button>
+          ) : (
+            <button className="border rounded-lg bg-[#46ec46] px-4 py-1 w-[10.1rem] h-[10.1rem] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]" onClick={startMovement}>
+              Start
+            </button>
+        )}
+      </div>
       <MapContainer center={center} zoom={11}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

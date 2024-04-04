@@ -1,6 +1,5 @@
 "use client"
 
-// import BasicMap from "./_components/map";
 import React, { useState } from "react";
 import dynamic from 'next/dynamic';
 
@@ -34,9 +33,8 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center p-10">
-
        <div className="flex gap-3 mb-5 w-[121vh]">
-        <div className="flex border-[2px] p-4 rounded-lg w-full justify-between items-space">
+        <div className="flex border-[2px] p-4 rounded-lg w-[80%] justify-between">
           <div className="flex flex-col gap-y-1">
             <p className="font-bold">Starting</p>
             <div className="flex gap-[7px] mt-7 items-center">
@@ -95,19 +93,10 @@ export default function Home() {
                 />
             </div>
           </div>
-        </div> 
-         {/* {reachedDes ? (
-          <button className="border rounded-lg bg-red-400 px-4 py-1 w-[11.2 rem]" onClick={resetMovement}>
-            Reset
-          </button>
-        ) : (
-          <button className="border rounded-lg bg-[#46ec46] px-4 py-1 w-[11.2rem] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]" onClick={startMovement}>
-            Start
-          </button>
-        )} */}
+        </div>
       </div> 
 
-      <BasicMap initialPosition={initialPosition} destinationPosition={destinationPosition} />
+      <BasicMap initialPosition={initialPosition} destinationPosition={destinationPosition} speed={speed} />
     </main>
   );
 }
