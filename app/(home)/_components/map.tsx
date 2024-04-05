@@ -6,10 +6,14 @@ import L, { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useMediaQuery } from "usehooks-ts";
 
-const BasicMap = ({ initialPosition, destinationPosition, speed }: { initialPosition: {lat: number, lng: number}, destinationPosition: {lat: number, lng: number}, speed: number }) => {
-  const [shipPosition, setShipPosition] = useState(initialPosition);
+const BasicMap = ({ initialPosition, destinationPosition,  speed }: { initialPosition: {lat: number, lng: number}, destinationPosition: {lat: number, lng: number}, speed: number }) => {
   const isMobile = useMediaQuery("(max-width: 768px)");
   const [reachedDes, setIsReached] = useState(false);
+  const [shipPosition, setShipPosition] = useState(initialPosition);
+
+  useEffect(() => {
+    setShipPosition(initialPosition);
+  }, [initialPosition]);
 
   const startMovement = () => {
     setIsReached(true);
@@ -20,6 +24,7 @@ const BasicMap = ({ initialPosition, destinationPosition, speed }: { initialPosi
     
     const intervalId = setInterval(() => {
       setShipPosition(prevPosition => {
+        console.log(prevPosition);
         const dLat = destinationPosition.lat - prevPosition.lat;
         const dLng = destinationPosition.lng - prevPosition.lng;
         const distanceToDestination = Math.sqrt(dLat * dLat + dLng * dLng);
@@ -40,10 +45,10 @@ const BasicMap = ({ initialPosition, destinationPosition, speed }: { initialPosi
       });
     }, interval);
   };
-
+  
   const resetMovement = () => {
     setIsReached(false); 
-    setShipPosition({ lat: 22.16996, lng: 91.4996 });
+    setShipPosition(initialPosition);
   };
   
   const greenIcon = new Icon({
@@ -70,14 +75,14 @@ const BasicMap = ({ initialPosition, destinationPosition, speed }: { initialPosi
   ];
 
   return (
-    <div className="flex flex-col justify-center relative items-center w-[121vh">
-      <div className={isMobile ? "" :"absolute right-[15px] top-[-10.3rem]"}>
+    <div className="flex justify-center relative items-center">
+      <div className={isMobile ? "" :"absolute left-[-232px] bottom-[15rem] z-9999"}>
         {reachedDes ? (
-            <button className={isMobile ? "border rounded-lg bg-[#ec4646] px-4 py-1 mt-3 w-[7rem] h-[2rem]" : "border rounded-lg bg-[#ec4646] px-4 py-1 w-[9rem] h-[9rem]"} onClick={resetMovement}>
+            <button className={isMobile ? "border rounded-lg bg-[#ec4646] px-4 py-1 mt-3 w-[7rem] h-[4rem]" : "border rounded-lg bg-[#ec4646] px-4 py-1 w-[11rem] h-[4rem]"} onClick={resetMovement}>
               Reset
             </button>
           ) : (
-            <button className={isMobile ? "border rounded-lg bg-[#46ec46] px-4 py-1 mt-3 w-[7rem] h-[2rem] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]" : "border rounded-lg bg-[#46ec46] px-4 py-1 w-[9rem] h-[9rem] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]"} onClick={startMovement}>
+            <button className={isMobile ? "border rounded-lg bg-[#46ec46] px-4 py-1 mt-3 w-[7rem] h-[4rem] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]" : "border rounded-lg bg-[#46ec46] px-4 py-1 w-[12.5rem] h-[4rem] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]"} onClick={startMovement}>
               Start
             </button>
         )}
