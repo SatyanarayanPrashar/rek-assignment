@@ -75,7 +75,7 @@ const BasicMap = ({ initialPosition, destinationPosition,  speed }: { initialPos
   ];
 
   return (
-    <div className={isMobile ? "" : "flex justify-center relative items-center"}>
+    <div className={isMobile ? "bg-[white]" : "flex justify-center relative items-center"}>
       <div className={isMobile ? "reltive" :"absolute left-[-232px] bottom-[15rem] z-9999"}>
         {reachedDes ? (
             <button className={isMobile ? "border rounded-lg bg-[#ec4646] px-4 py-1 mt-3 w-[100%] h-[4rem]" : "border rounded-lg bg-[#ec4646] px-4 py-1 w-[11rem] h-[4rem]"} onClick={resetMovement}>

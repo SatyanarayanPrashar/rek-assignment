@@ -61,7 +61,7 @@ export default function Home() {
   }
 
   return (
-    <main className={isMobile ? "" : "flex w-[100%] gap-1"}>
+    <main className={isMobile ? "bg-[white]" : "flex w-[100%] gap-1"}>
        <aside 
             className={cn(
                 "h-[100vh] bg-[re] relative flex w-60 flex-col border-r-2 px-4 py-5",
