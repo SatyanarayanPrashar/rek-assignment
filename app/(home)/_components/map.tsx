@@ -75,14 +75,14 @@ const BasicMap = ({ initialPosition, destinationPosition,  speed }: { initialPos
   ];
 
   return (
-    <div className="flex justify-center relative items-center">
-      <div className={isMobile ? "" :"absolute left-[-232px] bottom-[15rem] z-9999"}>
+    <div className={isMobile ? "" : "flex justify-center relative items-center"}>
+      <div className={isMobile ? "reltive" :"absolute left-[-232px] bottom-[15rem] z-9999"}>
         {reachedDes ? (
-            <button className={isMobile ? "border rounded-lg bg-[#ec4646] px-4 py-1 mt-3 w-[7rem] h-[4rem]" : "border rounded-lg bg-[#ec4646] px-4 py-1 w-[11rem] h-[4rem]"} onClick={resetMovement}>
+            <button className={isMobile ? "border rounded-lg bg-[#ec4646] px-4 py-1 mt-3 w-[100%] h-[4rem]" : "border rounded-lg bg-[#ec4646] px-4 py-1 w-[11rem] h-[4rem]"} onClick={resetMovement}>
               Reset
             </button>
           ) : (
-            <button className={isMobile ? "border rounded-lg bg-[#46ec46] px-4 py-1 mt-3 w-[7rem] h-[4rem] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]" : "border rounded-lg bg-[#46ec46] px-4 py-1 w-[12.5rem] h-[4rem] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]"} onClick={startMovement}>
+            <button className={isMobile ? "border rounded-lg bg-[#46ec46] px-4 py-1 mt-3 w-[100%] h-[4rem] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]" : "border rounded-lg bg-[#46ec46] px-4 py-1 w-[12.5rem] h-[4rem] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]"} onClick={startMovement}>
               Start
             </button>
         )}

@@ -61,11 +61,11 @@ export default function Home() {
   }
 
   return (
-    <main className="flex w-[100%] gap-1">
+    <main className={isMobile ? "" : "flex w-[100%] gap-1"}>
        <aside 
             className={cn(
                 "h-[100vh] bg-[re] relative flex w-60 flex-col border-r-2 px-4 py-5",
-                isMobile && "w-0"
+                isMobile && "flex h-full w-full"
             )}
         >
             <img src="company.png" />
@@ -120,7 +120,6 @@ export default function Home() {
           initialPosition={initialPosition}
           destinationPosition={destinationPosition} 
           speed={speed} 
-
         />
     </main>
   );

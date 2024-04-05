@@ -48,7 +48,7 @@ body {
 @media screen and (max-width: 475px) {
   .leaflet-container{
     height: 50vh;
-    width: 50vh;
+    width: 100%;
     border-radius: 1rem;
     margin-top: 10px;
   }
