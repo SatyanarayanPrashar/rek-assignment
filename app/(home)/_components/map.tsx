@@ -4,10 +4,11 @@ import React, { useEffect, useState } from "react";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import L, { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { useMediaQuery } from "usehooks-ts";
 
 const BasicMap = ({ initialPosition, destinationPosition, speed }: { initialPosition: {lat: number, lng: number}, destinationPosition: {lat: number, lng: number}, speed: number }) => {
   const [shipPosition, setShipPosition] = useState(initialPosition);
-
+  const isMobile = useMediaQuery("(max-width: 768px)");
   const [reachedDes, setIsReached] = useState(false);
 
   const startMovement = () => {
@@ -69,14 +70,14 @@ const BasicMap = ({ initialPosition, destinationPosition, speed }: { initialPosi
   ];
 
   return (
-    <div className="flex flex-col justify-center relative items-center w-[121vh]">
-      <div className="absolute right-0 top-[-11.5rem]">
+    <div className="flex flex-col justify-center relative items-center w-[121vh">
+      <div className={isMobile ? "" :"absolute right-[15px] top-[-10.3rem]"}>
         {reachedDes ? (
-            <button className="border rounded-lg bg-red-400 px-4 py-1 w-[10.1rem] h-[10.1rem]" onClick={resetMovement}>
+            <button className={isMobile ? "border rounded-lg bg-[#ec4646] px-4 py-1 mt-3 w-[7rem] h-[2rem]" : "border rounded-lg bg-[#ec4646] px-4 py-1 w-[9rem] h-[9rem]"} onClick={resetMovement}>
               Reset
             </button>
           ) : (
-            <button className="border rounded-lg bg-[#46ec46] px-4 py-1 w-[10.1rem] h-[10.1rem] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]" onClick={startMovement}>
+            <button className={isMobile ? "border rounded-lg bg-[#46ec46] px-4 py-1 mt-3 w-[7rem] h-[2rem] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]" : "border rounded-lg bg-[#46ec46] px-4 py-1 w-[9rem] h-[9rem] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]"} onClick={startMovement}>
               Start
             </button>
         )}

@@ -37,4 +37,30 @@ body {
   width: 121vh;
   border-radius: 1rem;
   margin-top: 10px;
+
+}
+@media screen and (max-width: 768px) {
+  .leaflet-container{
+    height: 70vh;
+    width: 80vh;
+    border-radius: 1rem;
+    margin-top: 10px;
+  }
+}
+@media screen and (max-width: 475px) {
+  .leaflet-container{
+    height: 50vh;
+    width: 50vh;
+    border-radius: 1rem;
+    margin-top: 10px;
+  }
+}
+
+@keyframes loading {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+.animate-loading {
+  animation: loading 0.6s ease-in-out;
 }
