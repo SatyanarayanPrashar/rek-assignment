@@ -76,7 +76,7 @@ const BasicMap = ({ initialPosition, destinationPosition,  speed }: { initialPos
 
   return (
     <div className={isMobile ? "bg-[white]" : "flex justify-center relative items-center"}>
-      <div className={isMobile ? "reltive" :"absolute left-[-232px] bottom-[15rem] z-9999"}>
+      <div className={isMobile ? "reltive" :"absolute left-[-232px] bottom-[12rem] z-9999"}>
         {reachedDes ? (
             <button className={isMobile ? "border rounded-lg bg-[#ec4646] px-4 py-1 mt-3 w-[100%] h-[4rem]" : "border rounded-lg bg-[#ec4646] px-4 py-1 w-[11rem] h-[4rem]"} onClick={resetMovement}>
               Reset
@@ -87,19 +87,22 @@ const BasicMap = ({ initialPosition, destinationPosition,  speed }: { initialPos
             </button>
         )}
       </div>
-      <MapContainer center={center} zoom={11}>
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url='https://tile.openstreetmap.org/{z}/{x}/{y}.png'
-        />
-        <Marker position={initialPosition} icon={greenIcon} />
-        <Marker position={shipPosition} icon={L.divIcon({
-            className: 'ship-icon',
-            html: `<img style="transform: rotate(${angle}deg); width: 10px; height: 60px; margin-top: -25px;" src="ship.png"/>`
-        })}/>
+      {initialPosition.lat !== 0 && initialPosition.lng !== 0 && destinationPosition.lat != 0 && destinationPosition.lng != 0 &&(
+        <MapContainer center={center} zoom={11}>
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url='https://tile.openstreetmap.org/{z}/{x}/{y}.png'
+            />
+              <Marker position={initialPosition} icon={greenIcon} />
+              <Marker position={shipPosition} icon={L.divIcon({
+                  className: 'ship-icon',
+                  html: `<img style="transform: rotate(${angle}deg); width: 10px; height: 60px; margin-top: -25px;" src="ship.png"/>`
+              })}/>
 
-        <Marker position={destinationPosition} icon={redIcon} />
-      </MapContainer>
+              <Marker position={destinationPosition} icon={redIcon} />
+        </MapContainer>
+      )}
+
     </div>
   );
 };

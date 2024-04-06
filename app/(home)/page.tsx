@@ -19,21 +19,14 @@ export default function Home() {
   }, []);
 
   const [initialPosition, setInitial] = useState({ lat: 22.1696, lng: 91.4996 });
-  const [shipPosition, setShipPosition] = useState(initialPosition);
   const [destinationPosition, setDestination] = useState({ lat: 22.2637, lng: 91.7159 });
   const [speed, setSpeed] = useState(20);
 
-  useEffect(() => {
-    setShipPosition(initialPosition);
-  }, [initialPosition]);
-
-  // const resetMovement = () => {
-  //   setIsReached(false); 
-  //   setShipPosition({ lat: 22.16996, lng: 91.4996 });
-  // };
-
   const handleInputChange = (event: { target: { name: any; value: any; }; }, positionType: string) => {
     const { name, value } = event.target;
+    if (value === '' || isNaN(parseFloat(value))) {
+      return;
+    }
     if (positionType === 'initial') {
         setInitial(prevState => ({
             ...prevState,
@@ -115,12 +108,26 @@ export default function Home() {
                     />
                 </div>
             </div>
+            <div className="flex text-[blue]">
+              <div className="flex gap-[7px] items-center">
+                  <p className="font-bold">Speed:</p>
+                  <input
+                      className="border rounded-lg px-2 max-w-[7rem] h-[35px] focus:outline-none"
+                      placeholder="Enter the speed"
+                      onChange={ (event) => setSpeed(parseInt(event.target.value)) }
+                      defaultValue={speed}
+                      name="speed"
+                  />
+              </div>
+            </div>
         </aside>
-        <BasicMap
-          initialPosition={initialPosition}
-          destinationPosition={destinationPosition} 
-          speed={speed} 
-        />
+        {initialPosition.lat !== 0 && initialPosition.lng !== 0 && destinationPosition.lat != 0 && destinationPosition.lng != 0 &&(
+            <BasicMap
+              initialPosition={initialPosition}
+              destinationPosition={destinationPosition} 
+              speed={speed} 
+            />
+        )}
     </main>
   );
 }
